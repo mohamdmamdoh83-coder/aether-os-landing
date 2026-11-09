@@ -190,6 +190,141 @@
       h1 { font-size:45px; }.hero { min-height:760px; }.hero-actions { flex-wrap:wrap;justify-content:center; }.node { font-size:8px;padding:5px 6px; }.loop-area::before { width:260px; }.orbit { width:208px; }.feature-grid { grid-template-columns:1fr; }.feature-card { min-height:185px; }.feature-icon { margin-bottom:18px; }
     }
     @media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important; } }
+
+    /* Premium midnight redesign */
+    :root {
+      --bg: #05070d;
+      --panel: rgba(12, 18, 29, .78);
+      --panel-2: rgba(15, 23, 34, .82);
+      --line: rgba(171, 199, 224, .14);
+      --line-bright: rgba(78, 234, 231, .32);
+      --text: #f5f8fc;
+      --muted: #a0adbd;
+      --dim: #657184;
+      --cyan: #5cecff;
+      --green: #55efb5;
+    }
+    body { background: #05070d; }
+    body::before {
+      z-index: -1;
+      background:
+        radial-gradient(ellipse at 50% 14%, rgba(26, 74, 112, .27), transparent 42%),
+        radial-gradient(ellipse at 9% 42%, rgba(22, 118, 112, .11), transparent 34%),
+        radial-gradient(ellipse at 91% 68%, rgba(36, 65, 122, .12), transparent 38%),
+        linear-gradient(145deg, #0a101d 0%, #05070d 52%, #030609 100%);
+    }
+    body::after {
+      content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .18;
+      background-image: linear-gradient(rgba(159, 205, 229, .045) 1px, transparent 1px), linear-gradient(90deg, rgba(159, 205, 229, .045) 1px, transparent 1px);
+      background-size: 68px 68px; mask-image: linear-gradient(to bottom, #000, transparent 92%);
+    }
+    .topbar { padding: 25px 0; border-color: rgba(194, 222, 244, .08); backdrop-filter: blur(10px); }
+    .brand-mark::before { border-color: var(--cyan); box-shadow: 0 0 15px rgba(92,236,255,.43); }
+    .brand-mark::after { background: var(--cyan); box-shadow: 0 0 15px var(--cyan); }
+    .hero { min-height: 0; padding: 170px 0 112px; }
+    .hero::before { display:none; }
+    .hero::after { width: min(1100px, 100vw); height: 660px; top: 280px; background: radial-gradient(ellipse, rgba(36, 178, 194, .19), rgba(40, 93, 153, .08) 42%, transparent 70%); filter: blur(26px); }
+    .hero-status { padding: 9px 14px; border-color: rgba(92,236,255,.28); background: rgba(9,19,31,.68); color: #c1d2df; box-shadow: inset 0 1px rgba(255,255,255,.04); }
+    .hero-status .status-dot { background: var(--cyan); box-shadow: 0 0 11px var(--cyan); }
+    h1 { max-width: 1120px; margin: 35px auto 23px; font-size: clamp(64px, 9vw, 126px); line-height: 1.04; letter-spacing: -.085em; font-weight: 800; background: linear-gradient(115deg, #67efff 7%, #dff7ff 45%, #f7fbff 68%, #9deaff 100%); color: transparent; background-clip: text; -webkit-background-clip: text; text-shadow: 0 0 58px rgba(92,236,255,.08); }
+    h1 .line-two { display: inline; background: inherit; color: transparent; background-clip: text; -webkit-background-clip: text; }
+    .hero-copy { color: #b4c0ce; font-size: 16px; line-height: 1.95; max-width: 620px; }
+    .hero-copy strong { color: #f4f9ff; font-weight: 700; }
+    .hero-actions { margin-top: 36px; gap: 14px; }
+    .button { min-height: 51px; padding-inline: 22px; border-radius: 5px; }
+    .button-primary { background: linear-gradient(110deg, #66f3ca, #67eaff); border-color: transparent; color: #041018; box-shadow: 0 0 30px rgba(82,228,228,.22), inset 0 1px rgba(255,255,255,.55); font-weight: 500; }
+    .button-primary:hover { box-shadow: 0 0 42px rgba(82,228,228,.4); }
+    .button-secondary { background: rgba(12,19,30,.76); border-color: rgba(180,214,241,.2); backdrop-filter: blur(12px); }
+    .system-widget { width: min(850px, 100%); margin-top: 74px; border: 1px solid rgba(158,221,243,.27); border-radius: 12px; background: linear-gradient(135deg, rgba(19,32,49,.84), rgba(7,13,23,.82)); backdrop-filter: blur(24px); box-shadow: 0 45px 130px rgba(0,0,0,.6), 0 0 100px rgba(57,195,218,.13), inset 0 1px rgba(255,255,255,.12); transform: perspective(1200px) rotateX(1deg); }
+    .system-widget::before { background: linear-gradient(90deg, transparent, rgba(92,236,255,.85), #72f2c0, rgba(92,236,255,.5), transparent); }
+    .widget-head { height: 49px; padding-inline: 20px; color: #a5b9cb; border-color: rgba(198,225,245,.1); }
+    .widget-body { grid-template-columns: 1fr 215px; min-height: 280px; }
+    .loop-area { min-height: 280px; }
+    .loop-area::before { width: 390px; height: 215px; border-color: rgba(111,225,239,.15); box-shadow: 0 0 70px rgba(57,195,218,.07); }
+    .orbit { width: 290px; height: 137px; border-color: rgba(92,236,255,.38); }
+    .orbit.orbit-two { width: 228px; height: 174px; border-color: rgba(85,239,181,.28); }
+    .core { width: 106px; height: 106px; background: radial-gradient(circle at 35% 25%, #286273, #102b3a 54%, #091323); border-color: rgba(92,236,255,.72); box-shadow: 0 0 35px rgba(72,220,243,.26), inset 0 0 28px rgba(57,204,234,.22); }
+    .core::before { width: 66px; height: 66px; border-color: rgba(128,244,241,.46); }
+    .core::after { width: 34px; height: 34px; border-color: rgba(132,237,255,.9); }
+    .node { padding: 8px 10px; border-color: rgba(92,236,255,.24); background: rgba(9,20,32,.86); color: #c3d9e8; box-shadow: 0 6px 24px rgba(0,0,0,.34); }
+    .node::before { background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+    .node-a { left: 12%; top: 47px; }.node-b { right: 8%; top: 66px; }.node-c { left: 11%; bottom: 47px; }.node-d { right: 8%; bottom: 38px; }
+    .widget-meta { border-color: rgba(198,225,245,.11); padding: 26px 20px; }
+    .meta-label { color: #8ca5b8; }.meta-title { font-size: 15px; }.meta-description { color: #94a8b8; }
+    .progress-label { color: #b0c6d4; }.progress-track { background: rgba(166,204,224,.16); }.progress-track i { background: linear-gradient(90deg, var(--green), var(--cyan)); }
+    .hero-footnote { margin-top: 18px; color: #7d91a1; letter-spacing: .14em; }
+    section.content-section { padding: 136px 0; border-color: rgba(177,207,232,.09); }
+    .section-heading { margin-bottom: 48px; }
+    .eyebrow { color: var(--cyan); }
+    .section-heading h2 { margin-top: 17px; font-size: clamp(38px, 5vw, 58px); line-height: 1.12; letter-spacing: -.07em; }
+    .section-heading p { max-width: 390px; color: #a3b1c0; font-size: 13px; line-height: 1.95; }
+    .section-index { margin-top: 16px; color: #64778a; }
+    .feature-grid { gap: 16px; }
+    .feature-card { min-height: 270px; padding: 27px 24px 24px; border: 1px solid rgba(154,198,221,.15); border-radius: 9px; background: linear-gradient(145deg, rgba(22,34,49,.68), rgba(8,14,24,.62)); backdrop-filter: blur(18px); box-shadow: inset 0 1px rgba(255,255,255,.04); }
+    .feature-card::after { width: 130px; height: 130px; right: -42px; top: -58px; background: var(--cyan); opacity: .08; filter: blur(42px); }
+    .feature-card:hover { border-color: rgba(92,236,255,.42); background: linear-gradient(145deg, rgba(25,48,59,.82), rgba(8,17,27,.78)); box-shadow: 0 15px 50px rgba(13,147,162,.09), inset 0 1px rgba(255,255,255,.07); }
+    .feature-icon { width: 43px; height: 43px; margin-bottom: 34px; border-color: rgba(85,239,181,.3); border-radius: 7px; color: var(--green); background: rgba(50,184,134,.1); box-shadow: 0 0 20px rgba(85,239,181,.07); }
+    .feature-card h3 { font-size: 15px; margin-bottom: 11px; }
+    .feature-card p { color: #a2b0bd; font-size: 12px; line-height: 1.85; }
+    .feature-card .card-n { color: #607588; }
+    .simulation-section::before { top: 16%; height: 68%; background: radial-gradient(ellipse, rgba(29,139,175,.12), transparent 65%); }
+    .simulation { min-height: 390px; border-color: rgba(151,205,228,.19); border-radius: 10px; background: linear-gradient(140deg, rgba(16,27,41,.85), rgba(6,11,19,.86)); backdrop-filter: blur(16px); box-shadow: 0 28px 90px rgba(0,0,0,.4), inset 0 1px rgba(255,255,255,.04); }
+    .console { border-color: rgba(189,218,240,.1); padding-inline: 27px; }
+    .console-bar { margin-inline: -27px; height: 49px; padding-inline: 22px; border-color: rgba(189,218,240,.1); color: #92a8b9; }
+    .live-label { color: var(--green); }
+    .log-list { gap: 16px; }.log-list li { color: #bbc8d3; font-size: 11px; }
+    .log-time { color: #708496; }.log-cyan { color: var(--cyan); }
+    .console-note { color: #758a99; margin-top: 24px; }
+    .simulation-aside { padding: 32px; }
+    .aside-topline { color: var(--cyan); }.simulation-aside h3 { font-size: 28px; line-height: 1.28; }
+    .simulation-aside p { color: #a3b1bf; font-size: 12px; line-height: 1.9; }
+    .metric { border-color: rgba(166,205,226,.12); background: rgba(255,255,255,.025); padding: 14px; }
+    .metric strong { color: #dbf7ff; }.metric span { color: #8193a2; }
+    .pricing-grid { gap: 16px; align-items: stretch; padding: 4px 0; }
+    .price-card { min-height: 360px; padding: 29px 27px 25px; border-color: rgba(158,196,220,.16); border-radius: 9px; background: linear-gradient(145deg, rgba(19,29,43,.79), rgba(7,12,20,.82)); backdrop-filter: blur(16px); box-shadow: inset 0 1px rgba(255,255,255,.04); }
+    .price-card:hover { border-color: rgba(92,236,255,.4); box-shadow: 0 18px 55px rgba(17,142,168,.11), inset 0 1px rgba(255,255,255,.07); }
+    .price-card.featured { z-index: 1; transform: scale(1.045); border-color: rgba(92,236,255,.52); background: linear-gradient(150deg, rgba(14,51,66,.93), rgba(7,17,29,.93) 75%); box-shadow: 0 0 54px rgba(55,200,221,.12), 0 20px 65px rgba(0,0,0,.34), inset 0 1px rgba(255,255,255,.1); }
+    .price-card.featured:hover { transform: scale(1.055) translateY(-4px); }
+    .popular { top: 18px; right: 18px; padding: 7px 10px; border-radius: 99px; color: #03131a; background: linear-gradient(100deg,#69f4cf,#64eaff); box-shadow: 0 0 24px rgba(92,236,255,.32); font-size: 8px; font-weight: 500; }
+    .plan-name { color: #c1cfdb; }.price { margin-top: 27px; font-size: 39px; }.price small { color: #a5b8c5; }
+    .price-desc { color: #a2b1be; line-height: 1.85; }.price-rule { background: rgba(181,212,232,.12); }
+    .plan-features { color: #c1cdd7; gap: 13px; font-size: 11px; }
+    .plan-features li::before { color: var(--green); }
+    .plan-cta { min-height: 43px; border-color: rgba(177,207,228,.24); color: #eaf5fa; }
+    .plan-cta:hover { color: var(--cyan); border-color: var(--cyan); box-shadow: 0 0 22px rgba(92,236,255,.12); }
+    .featured .plan-cta { color: #04131a; border-color: transparent; background: linear-gradient(100deg,#62f0c7,#66eaff); box-shadow: 0 0 24px rgba(92,236,255,.2), inset 0 1px rgba(255,255,255,.44); font-weight: 500; }
+    .featured .plan-cta:hover { color: #04131a; box-shadow: 0 0 34px rgba(92,236,255,.4); }
+    footer { border-color: rgba(177,207,232,.1); background: rgba(4,7,12,.35); }
+    .footer-status { color: #a2b7b1; }
+    .footer-links { color: #9aaab7; }
+    .copyright, .footer-version { color: #718292; }
+    @media (max-width: 900px) {
+      .hero { padding-top: 155px; }
+      .price-card.featured { transform: none; }
+      .price-card.featured:hover { transform: translateY(-4px); }
+    }
+    @media (max-width: 680px) {
+      .hero { padding: 132px 0 78px; }
+      h1 { font-size: clamp(53px, 12vw, 78px); margin-top: 29px; }
+      .hero-copy { font-size: 13px; }
+      .system-widget { margin-top: 53px; transform: none; }
+      .widget-body { grid-template-columns: 1fr; }
+      .loop-area { min-height: 220px; }
+      .widget-meta { border-top: 1px solid rgba(198,225,245,.11); }
+      section.content-section { padding: 89px 0; }
+      .section-heading { margin-bottom: 32px; }
+      .feature-card { min-height: 238px; }
+      .feature-icon { margin-bottom: 27px; }
+      .simulation { min-height: 0; }
+      .console { padding-inline: 16px; }
+      .console-bar { margin-inline: -16px; }
+      .simulation-aside { padding: 25px 22px; }
+      .pricing-grid { gap: 13px; }
+      .price-card.featured { transform: none; }
+    }
+    @media (max-width: 390px) {
+      h1 { font-size: 49px; }
+    }
   </style>
 </head>
 <body>
@@ -282,7 +417,7 @@
         </div>
         <div class="pricing-grid">
           <article class="price-card"><div class="plan-name">Core / Community</div><div class="price">Free</div><p class="price-desc">The essential local-first kernel. Open source, yours to shape.</p><div class="price-rule"></div><ul class="plan-features"><li>Open-source local kernel</li><li>One active agent loop</li><li>Community extensions</li></ul><a class="plan-cta" href="mailto:hello@aetheros.dev?subject=AetherOS%20Core">EXPLORE THE KERNEL ↗</a></article>
-          <article class="price-card featured"><span class="popular">FOR BUILDERS</span><div class="plan-name">Pro / Developer</div><div class="price">$29.99<small> / hr equivalent</small></div><p class="price-desc">An advanced agentic toolkit for people building what comes next.</p><div class="price-rule"></div><ul class="plan-features"><li>Advanced multi-agent loops</li><li>Developer API &amp; toolchain</li><li>Priority model integrations</li></ul><a class="plan-cta" href="mailto:hello@aetheros.dev?subject=AetherOS%20Pro">GET DEVELOPER ACCESS ↗</a></article>
+          <article class="price-card featured"><span class="popular">MOST POPULAR</span><div class="plan-name">Pro / Developer</div><div class="price">$29.99<small> / hr</small></div><p class="price-desc">An advanced agentic toolkit for people building what comes next.</p><div class="price-rule"></div><ul class="plan-features"><li>Advanced multi-agent loops</li><li>Developer API &amp; toolchain</li><li>Priority model integrations</li></ul><a class="plan-cta" href="mailto:hello@aetheros.dev?subject=AetherOS%20Pro">GET DEVELOPER ACCESS ↗</a></article>
           <article class="price-card"><div class="plan-name">Enterprise / Network</div><div class="price">Custom</div><p class="price-desc">Private, coordinated intelligence across your entire organization.</p><div class="price-rule"></div><ul class="plan-features"><li>Custom fleet deployment</li><li>Private network orchestration</li><li>Dedicated support &amp; controls</li></ul><a class="plan-cta" href="mailto:hello@aetheros.dev?subject=AetherOS%20Enterprise">TALK TO THE NETWORK ↗</a></article>
         </div>
       </div>
