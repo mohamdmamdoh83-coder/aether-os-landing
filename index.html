@@ -325,9 +325,66 @@
     @media (max-width: 390px) {
       h1 { font-size: 49px; }
     }
+
+    /* Ambient kernel field + restrained cyber motion */
+    #particle-field { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    main, footer { position: relative; z-index: 1; }
+    .system-widget { isolation: isolate; }
+    .system-widget::after {
+      content: ''; position: absolute; z-index: 3; inset: 0; padding: 1px; border-radius: inherit; pointer-events: none;
+      background: conic-gradient(from 0deg, transparent 0 22%, rgba(92,236,255,.94) 28%, transparent 36% 57%, rgba(85,239,181,.82) 63%, transparent 72% 100%);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      opacity: .76; animation: terminal-cycle 11s linear infinite;
+    }
+    .system-widget:hover::after { opacity: 1; animation-duration: 6s; }
+    h1 .glitch-line { display: block; position: relative; }
+    h1 .glitch-line::before, h1 .glitch-line::after {
+      content: attr(data-text); position: absolute; inset: 0; display: block; opacity: 0; pointer-events: none;
+      font: inherit; letter-spacing: inherit; line-height: inherit; white-space: nowrap; background: none; background-clip: initial;
+      -webkit-background-clip: initial; -webkit-text-fill-color: currentColor;
+    }
+    h1 .glitch-line::before { color: var(--cyan); }
+    h1 .glitch-line::after { color: #f2ffff; }
+    h1:hover .glitch-line::before, h1:focus-visible .glitch-line::before { animation: glitch-cyan .76s steps(1, end) both; }
+    h1:hover .glitch-line::after, h1:focus-visible .glitch-line::after { animation: glitch-white .76s steps(1, end) both; }
+    .button-primary, .featured .plan-cta { will-change: transform; }
+    .button-primary, .featured .plan-cta { transform: translate3d(var(--mag-x, 0px), var(--mag-y, 0px), 0); }
+    .button-primary:hover { transform: translate3d(var(--mag-x, 0px), calc(var(--mag-y, 0px) - 2px), 0); }
+    .featured .plan-cta:hover { transform: translate3d(var(--mag-x, 0px), calc(var(--mag-y, 0px) - 1px), 0); }
+    @keyframes terminal-cycle { to { transform: rotate(360deg); } }
+    @keyframes glitch-cyan {
+      0%, 100% { opacity: 0; clip-path: inset(0 0 100% 0); transform: translateX(0); }
+      12% { opacity: .8; clip-path: inset(8% 0 70% 0); transform: translateX(-5px); }
+      20% { opacity: .68; clip-path: inset(48% 0 39% 0); transform: translateX(4px); }
+      28% { opacity: .75; clip-path: inset(74% 0 8% 0); transform: translateX(-3px); }
+      38% { opacity: .55; clip-path: inset(22% 0 64% 0); transform: translateX(2px); }
+      52% { opacity: .68; clip-path: inset(60% 0 22% 0); transform: translateX(-2px); }
+      64% { opacity: .42; clip-path: inset(0 0 82% 0); transform: translateX(3px); }
+      76% { opacity: .65; clip-path: inset(38% 0 51% 0); transform: translateX(-1px); }
+    }
+    @keyframes glitch-white {
+      0%, 100% { opacity: 0; clip-path: inset(100% 0 0 0); transform: translateX(0); }
+      16% { opacity: .62; clip-path: inset(66% 0 22% 0); transform: translateX(4px); }
+      25% { opacity: .5; clip-path: inset(12% 0 74% 0); transform: translateX(-3px); }
+      44% { opacity: .65; clip-path: inset(40% 0 46% 0); transform: translateX(2px); }
+      58% { opacity: .45; clip-path: inset(82% 0 5% 0); transform: translateX(-2px); }
+      72% { opacity: .56; clip-path: inset(27% 0 61% 0); transform: translateX(1px); }
+    }
+    @media (max-width: 680px) {
+      h1 .glitch-line::before, h1 .glitch-line::after { white-space: normal; }
+      .system-widget::after { animation-duration: 16s; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .system-widget::after { animation: none; opacity: .4; }
+      h1:hover .glitch-line::before, h1:hover .glitch-line::after,
+      h1:focus-visible .glitch-line::before, h1:focus-visible .glitch-line::after { animation: none; opacity: 0; }
+      .button-primary, .featured .plan-cta { will-change: auto; transform: none !important; }
+    }
   </style>
 </head>
 <body>
+  <canvas id="particle-field" aria-hidden="true"></canvas>
   <header class="topbar">
     <div class="shell nav-inner">
       <a class="brand" href="#top" aria-label="AetherOS home"><span class="brand-mark" aria-hidden="true"></span><span>AETHER<b>OS</b></span></a>
@@ -342,7 +399,7 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="shell">
         <div class="hero-status"><span class="status-dot"></span> LOCAL KERNEL // ONLINE <span style="color:#51675c">·</span> V.0.9.4</div>
-        <h1 id="hero-title">The Interface of<br><span class="line-two">Tomorrow.</span></h1>
+        <h1 id="hero-title"><span class="glitch-line" data-text="The Interface of">The Interface of</span><span class="line-two glitch-line" data-text="Tomorrow.">Tomorrow.</span></h1>
         <p class="hero-copy"><strong>Zero Code. Total Agency.</strong><br>A new kind of operating system. Your intelligence stays on your machine, your agents turn intent into action.</p>
         <div class="hero-actions">
           <a class="button button-primary" href="#deploy">INITIALIZE SYSTEM <span class="arrow">↗</span></a>
@@ -445,6 +502,131 @@
       menuButton.setAttribute('aria-expanded', 'false');
       menuButton.textContent = '☰';
     }));
+
+    // Lightweight ambient particles: capped DPR/count, 30fps, and paused off-screen.
+    (() => {
+      const canvas = document.getElementById('particle-field');
+      const ctx = canvas.getContext('2d', { alpha: true });
+      if (!ctx) return;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const pointerFine = window.matchMedia('(pointer: fine)');
+      let width = 0, height = 0, dpr = 1, particles = [], frame = 0, lastFrame = 0;
+      let pointer = { x: -1000, y: -1000, active: false };
+
+      function resize() {
+        const oldWidth = width || window.innerWidth;
+        const oldHeight = height || window.innerHeight;
+        width = window.innerWidth;
+        height = window.innerHeight;
+        dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        const count = Math.max(22, Math.min(width < 680 ? 30 : 68, Math.round(width * height / 28500)));
+        particles = Array.from({ length: count }, (_, index) => {
+          const old = particles[index];
+          return old ? { ...old, x: old.x / oldWidth * width, y: old.y / oldHeight * height } : {
+            x: Math.random() * width, y: Math.random() * height,
+            vx: (Math.random() - .5) * .22, vy: (Math.random() - .5) * .18,
+            radius: .7 + Math.random() * 1.15, hue: Math.random() > .48 ? 164 : 188,
+            phase: Math.random() * Math.PI * 2
+          };
+        });
+        render(performance.now(), true);
+      }
+      function render(time, staticFrame = false) {
+        ctx.clearRect(0, 0, width, height);
+        const pulse = .018 + (Math.sin(time * .00045) + 1) * .004;
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = `rgba(110, 220, 235, ${pulse})`;
+        ctx.beginPath();
+        for (let x = 0; x <= width; x += 68) { ctx.moveTo(x, 0); ctx.lineTo(x, height); }
+        for (let y = 0; y <= height; y += 68) { ctx.moveTo(0, y); ctx.lineTo(width, y); }
+        ctx.stroke();
+
+        const scan = (time * .014) % (height + 180) - 90;
+        const band = ctx.createLinearGradient(0, scan - 60, 0, scan + 60);
+        band.addColorStop(0, 'rgba(77, 235, 220, 0)');
+        band.addColorStop(.5, 'rgba(77, 235, 220, .035)');
+        band.addColorStop(1, 'rgba(77, 235, 220, 0)');
+        ctx.fillStyle = band;
+        ctx.fillRect(0, Math.max(-60, scan - 60), width, 120);
+
+        const dt = Math.min((time - (lastFrame || time)) / 16.67, 2);
+        lastFrame = time;
+        for (const p of particles) {
+          if (!staticFrame && !reduceMotion.matches) {
+            p.x += p.vx * dt; p.y += p.vy * dt;
+            p.phase += .012 * dt;
+            if (pointer.active) {
+              const dx = pointer.x - p.x, dy = pointer.y - p.y;
+              const distance = Math.hypot(dx, dy);
+              if (distance < 175 && distance > 1) {
+                const influence = (1 - distance / 175) * .006 * dt;
+                p.x -= dx * influence; p.y -= dy * influence;
+              }
+            }
+            if (p.x < -12) p.x = width + 12; else if (p.x > width + 12) p.x = -12;
+            if (p.y < -12) p.y = height + 12; else if (p.y > height + 12) p.y = -12;
+          }
+        }
+        for (let i = 0; i < particles.length; i++) {
+          const a = particles[i];
+          for (let j = i + 1; j < particles.length; j++) {
+            const b = particles[j], dx = a.x - b.x, dy = a.y - b.y;
+            const distance = Math.hypot(dx, dy);
+            if (distance < 112) {
+              ctx.strokeStyle = `hsla(${(a.hue + b.hue) / 2}, 78%, 67%, ${(1 - distance / 112) * .095})`;
+              ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+            }
+          }
+          const glow = .3 + (Math.sin(a.phase) + 1) * .16;
+          ctx.beginPath(); ctx.fillStyle = `hsla(${a.hue}, 88%, 72%, ${glow})`;
+          ctx.shadowColor = a.hue === 164 ? 'rgba(85,239,181,.8)' : 'rgba(92,236,255,.8)';
+          ctx.shadowBlur = 9; ctx.arc(a.x, a.y, a.radius, 0, Math.PI * 2); ctx.fill();
+        }
+        ctx.shadowBlur = 0;
+        if (!staticFrame && !reduceMotion.matches && !document.hidden) {
+          frame = window.requestAnimationFrame(nextFrame);
+        }
+      }
+      function nextFrame(time) {
+        if (time - lastFrame < 32) { frame = window.requestAnimationFrame(nextFrame); return; }
+        render(time);
+      }
+      function start() {
+        if (!reduceMotion.matches && !document.hidden && !frame) frame = window.requestAnimationFrame(nextFrame);
+      }
+      function stop() { if (frame) cancelAnimationFrame(frame); frame = 0; }
+      window.addEventListener('resize', resize, { passive: true });
+      window.addEventListener('pointermove', event => {
+        if (!pointerFine.matches) return;
+        pointer.x = event.clientX; pointer.y = event.clientY; pointer.active = true;
+      }, { passive: true });
+      window.addEventListener('pointerout', event => {
+        if (!event.relatedTarget) pointer.active = false;
+      }, { passive: true });
+      document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+      reduceMotion.addEventListener?.('change', () => { stop(); render(performance.now(), true); start(); });
+      resize(); start();
+    })();
+
+    // Small magnetic pull on primary actions, enabled only for mouse-like pointers.
+    if (window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('.button-primary, .featured .plan-cta').forEach(button => {
+        button.addEventListener('pointermove', event => {
+          const rect = button.getBoundingClientRect();
+          const x = (event.clientX - rect.left - rect.width / 2) * .13;
+          const y = (event.clientY - rect.top - rect.height / 2) * .13;
+          button.style.setProperty('--mag-x', `${Math.max(-7, Math.min(7, x))}px`);
+          button.style.setProperty('--mag-y', `${Math.max(-5, Math.min(5, y))}px`);
+        }, { passive: true });
+        button.addEventListener('pointerleave', () => {
+          button.style.setProperty('--mag-x', '0px');
+          button.style.setProperty('--mag-y', '0px');
+        });
+      });
+    }
   </script>
 </body>
 </html>
