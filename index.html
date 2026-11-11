@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aether OS — the futuristic operating system for autonomous AI agents. Neural routing, zero-trust sandboxing, and real-time observability." />
+  <meta name="theme-color" content="#05060a" />
+  <title>Aether OS — Operating System for Autonomous AI Agents</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#05060a',
+            panel: '#0a0c14',
+            cyber: {
+              cyan: '#22e6ff',
+              magenta: '#ff2fd6',
+              violet: '#8b5cf6',
+              lime: '#b6ff3d',
+            },
+          },
+          fontFamily: {
+            display: ['"Space Grotesk"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="relative min-h-screen bg-ink font-sans text-slate-200 antialiased overflow-x-hidden">
+
+  <!-- ============================================================
+       ANIMATED MESH GRADIENT BACKGROUND
+  ============================================================ -->
+  <div class="mesh-bg" aria-hidden="true">
+    <span class="mesh-blob mesh-blob--cyan"></span>
+    <span class="mesh-blob mesh-blob--magenta"></span>
+    <span class="mesh-blob mesh-blob--violet"></span>
+    <span class="mesh-blob mesh-blob--lime"></span>
+  </div>
+  <div class="grid-overlay" aria-hidden="true"></div>
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- ============================================================
+       HEADER / NAVIGATION
+  ============================================================ -->
+  <header id="site-header" class="fixed inset-x-0 top-0 z-50 transition-all duration-300">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8" aria-label="Main">
+      <!-- Logo -->
+      <a href="#" class="group flex items-center gap-3">
+        <span class="logo-mark" aria-hidden="true">
+          <span class="logo-mark__core"></span>
+        </span>
+        <span class="font-display text-lg font-bold tracking-widest text-white">
+          AETHER<span class="text-cyber-cyan">//</span>OS
+        </span>
+      </a>
+
+      <!-- Desktop links -->
+      <ul class="hidden items-center gap-8 md:flex">
+        <li><a href="#features" class="nav-link">Overview</a></li>
+        <li><a href="#architecture" class="nav-link">Architecture</a></li>
+        <li><a href="#metrics" class="nav-link">Telemetry</a></li>
+        <li><a href="#sdk" class="nav-link">SDK</a></li>
+      </ul>
+
+      <div class="flex items-center gap-3">
+        <a href="#cta" class="btn-ghost hidden sm:inline-flex">Docs</a>
+        <a href="#cta" class="btn-primary">
+          <span>Launch Console</span>
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <!-- Mobile menu button -->
+        <button id="nav-toggle" type="button" class="nav-burger md:hidden" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="mobile-menu md:hidden" hidden>
+      <ul class="flex flex-col gap-1 px-6 pb-6">
+        <li><a href="#features" class="mobile-nav-link">Overview</a></li>
+        <li><a href="#architecture" class="mobile-nav-link">Architecture</a></li>
+        <li><a href="#metrics" class="mobile-nav-link">Telemetry</a></li>
+        <li><a href="#sdk" class="mobile-nav-link">SDK</a></li>
+        <li><a href="#cta" class="mobile-nav-link mobile-nav-link--cta">Launch Console →</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============================================================
+         HERO
+    ============================================================ -->
+    <section class="relative mx-auto max-w-7xl px-4 pb-16 pt-32 sm:px-6 sm:pt-40 lg:px-8">
+      <div class="max-w-4xl">
+        <!-- Version badge -->
+        <div class="reveal inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 font-mono text-xs tracking-wider text-cyber-cyan backdrop-blur-md">
+          <span class="status-dot" aria-hidden="true"></span>
+          v2.4 · NEURAL FABRIC UPDATE IS LIVE
+        </div>
+
+        <!-- Headline -->
+        <h1 class="reveal mt-6 font-display text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-7xl">
+          The operating system<br class="hidden sm:block" />
+          for <span class="text-gradient-cyber">autonomous AI agents</span>
+        </h1>
+
+        <!-- Sub copy -->
+        <p class="reveal mt-6 max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg">
+          Aether OS runs swarms of goal-driven agents inside a zero-trust kernel —
+          routing intelligence through a neural fabric with sub-10ms scheduling,
+          full observability, and deterministic safety rails.
+        </p>
+
+        <!-- CTA row -->
+        <div class="reveal mt-9 flex flex-wrap items-center gap-4">
+          <a href="#cta" class="btn-primary btn-primary--lg">
+            <span>Deploy Agent Kernel</span>
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#features" class="btn-ghost btn-ghost--lg">
+            <svg class="h-4 w-4 text-cyber-magenta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+            <span>Watch system tour</span>
+          </a>
+        </div>
+
+        <!-- Trust row -->
+        <div class="reveal mt-12 flex flex-wrap items-center gap-x-8 gap-y-3 font-mono text-xs uppercase tracking-widest text-slate-500">
+          <span>Trusted by autonomous teams at</span>
+          <span class="text-slate-400">NEBULA-LABS</span>
+          <span class="text-slate-400">QUANTA-9</span>
+          <span class="text-slate-400">HELIODYNE</span>
+          <span class="text-slate-400">V0ID-CORP</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         DYNAMIC BENTO GRID
+    ============================================================ -->
+    <section id="features" class="relative mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
+      <!-- Section heading -->
+      <div class="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p class="reveal font-mono text-xs uppercase tracking-[0.3em] text-cyber-magenta">// system architecture</p>
+          <h2 class="reveal mt-2 font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            Every module. One grid.
+          </h2>
+        </div>
+        <p class="reveal max-w-sm text-sm leading-relaxed text-slate-400">
+          A bento of battle-tested subsystems — click any tile to inspect its live telemetry stream.
+        </p>
+      </div>
+
+      <!-- ========================= BENTO GRID ========================= -->
+      <div id="bento-grid" class="bento-grid">
+
+        <!-- ---------- CARD 1 : CORE RUNTIME (2x2) ---------- -->
+        <article class="bento-card bento-card--core reveal" data-tilt data-glow style="--delay: 0ms">
+          <div class="card-shine" aria-hidden="true"></div>
+          <header class="card-head">
+            <span class="card-tag card-tag--cyan">CORE_RUNTIME</span>
+            <span class="card-live"><span class="status-dot"></span>LIVE</span>
+          </header>
+
+          <!-- Animated core visual -->
+          <div class="core-stage" aria-hidden="true">
+            <span class="core-ring core-ring--1"></span>
+            <span class="core-ring core-ring--2"></span>
+            <span class="core-ring core-ring--3"></span>
+            <span class="core-orb"></span>
+            <span class="core-satellite core-satellite--1"></span>
+            <span class="core-satellite core-satellite--2"></span>
+            <span class="core-satellite core-satellite--3"></span>
+          </div>
+
+          <div class="mt-auto">
+            <h3 class="font-display text-2xl font-bold text-white">Neural Kernel Core</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-400">
+              A deterministic scheduler for 10,000+ concurrent agents. Plan, act, and reflect
+              cycles execute inside isolated sandboxes with nanosecond-precision clocks.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2 font-mono text-[11px]">
+              <span class="chip">Rust Kernel</span>
+              <span class="chip">WASM Sandboxes</span>
+              <span class="chip">Deterministic</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- ---------- CARD 2 : TERMINAL (2x1) ---------- -->
+        <article class="bento-card bento-card--terminal reveal" data-tilt data-glow style="--delay: 60ms">
+          <div class="card-shine" aria-hidden="true"></div>
+          <header class="card-head">
+            <span class="card-tag card-tag--magenta">aether_cli</span>
+            <div class="window-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+          </header>
+          <div class="terminal-screen font-mono text-[11px] leading-relaxed sm:text-xs" id="terminal" aria-label="Live terminal output">
+            <!-- Fallback content (replaced by script.js typing effect) -->
+            <p><span class="t-prompt">$</span> aether init --agents 128</p>
+            <p><span class="t-ok">✓</span> neural fabric online</p>
+            <p><span class="t-ok">✓</span> sandbox: zero-trust enforced</p>
+            <p><span class="t-prompt">$</span> aether deploy ./mission.json</p>
+            <p><span class="t-info">→</span> agent[01] planning… 12ms</p>
+            <p><span class="t-ok">MISSION COMPLETE</span> — 0 violations</p>
+          </div>
+        </article>
+
+        <!-- ---------- CARD 3 : STAT UPTIME (1x1) ---------- -->
+        <article class="bento-card reveal" data-tilt data-glow style="--delay: 120ms">
+          <div class="card-shine" aria-hidden="true"></div>
+          <header class="card-head">
+            <span class="card-tag">UPTIME</span>
+          </header>
+          <div class="flex flex-col justify-center">
+            <p class="font-display text-4xl font-bold text-white sm:text-5xl">
+              <span class="counter" data-target="99.99" data-decimals="2">0</span><span class="text-cyber-lime">%</span>
+            </p>
+            <p class="mt-2 font-mono text-[11px] uppercase tracking-widest text-slate-500">fleet availability · 90d</p>
+            <div class="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+              <div class="bar-fill bar-fill--lime" data-width="99.99"></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ---------- CARD 4 : STAT LATENCY (1x1) ---------- -->
+        <article class="bento-card reveal" data-tilt data-glow style="--delay: 180ms">
+          <div class="card-shine" aria-hidden="true"></div>
+          <header class="card-head">
+            <span class="card-tag">P95_LATENCY</span>
+          </header>
+          <div class="flex flex-col justify-center">
+            <p class="font-display text-4xl font-bold text-white sm:text-5xl">
+              <span class="counter" data-target="8" data-decimals="0">0</span><span class="text-cyber-cyan">ms</span>
+            </p>
+            <p class="mt-2 font-mono text-[11px] uppercase tracking-widest text-slate-500">scheduling overhead</p>
+            <div class="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+              <div class="bar-fill bar-fill--cyan" data-width="92"></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ---------- CARD 5 : NEURAL ROUTING (2x1) ---------- -->
+        <article class="bento-card reveal" data-tilt data-glow style="--delay: 240ms">
+          <div class="card-shine" aria-hidden="true"></div>
+          <header class="card-head">
+            <span class="card-tag card-tag--violet">NEURAL_ROUTING</span>
+            <span class="card-live"><span class="status-dot status-dot--violet"></span>MESH</span>
+          </header>
+          <div class="grid gap-4 sm:grid-cols-2 sm:items-center">
+            <div>
+              <h3 class="font-display text-xl font-bold text-white">Swarm intelligence mesh</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-400">
+                Embeddings-based routing sends every task to the optimal model tier —
+                escalating to frontier reasoning only when confidence drops.
+              </p>
+            </div>
+            <!-- Mini node graph -->
+            <svg class="routing-graph h-28 w-full" viewBox="0 0 220 110" fill="none" aria-hidden="true">
+              <path class="graph-edge" d="M20 55 C 60 15, 90 15, 110 55" />
+              <path class="graph-edge" d="M20 55 C 60 95, 90 95, 110 55" />
+              <path class="graph-edge" d="M110 55 C 140 15, 170 20, 200 35" />
+              <path class="graph-edge" d="M110 55 C 140 95, 170 90, 200 75" />
+              <circle class="graph-node" cx="20" cy="55" r="7" />
+              <circle class="graph-node graph-node--mid" cx="110" cy="55" r="7" />
+              <circle class="graph-node graph-node--end" cx="200" cy="35" r="6" />
+              <circle class="graph-node graph-node--end" cx="200" cy="75" r="6" />
+              <circle class="graph-pulse" cx="20" cy="55" r="4" />
+            </svg>
+          </div>
+        </article>
+
+        <!-- ---------- CARD 6 : ZERO-TRUST SANDBOX (1x1) ---------- -->
+        <article class="bento-card reveal" data-tilt data-glow style="--delay: 300ms">
+          <div class="card-shine" aria-hidden="true"></div>
+          <header class="card-head">
+            <span class="card-tag card-tag--magenta">SECURITY</span>
+          </header>
+          <div class="flex flex-col gap-3">
+            <div class="icon-orb icon-orb--magenta" aria-hidden="true">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+            </div>
+            <h3 class="font-display text-lg font-bold text-white">Zero-Trust Sandbox</h3>
+            <p class="text-sm leading-relaxed text-slate-400">
+              Every tool call is signed, scoped, and replay-audited. Agents get zero ambient authority.
+            </p>
+          </div>
+        </article>
+
+        <!-- ---------- CARD 7 : OBSERVABILITY (1x1) ---------- -->
+        <article class="bento-card reveal" data-tilt data-glow style="--delay: 360ms">
+          <div class="card-shine" aria-hidden="true"></div>
+          <header class="card-head">
+            <span class="card-tag card-tag--cyan">TELEMETRY</span>
+          </header>
+          <div class="flex flex-col gap-3">
+            <div class="icon-orb icon-orb--cyan" aria-hidden="true">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>
+            </div>
+            <h3 class="font-display text-lg font-bold text-white">Full-trace Observability</h3>
+            <div class="spark-bars flex h-14 items-end gap-1.5" aria-hidden="true">
+              <span style="--h: 40%"></span><span style="--h: 65%"></span><span style="--h: 45%"></span>
+              <span style="--h: 85%"></span><span style="--h: 60%"></span><span style="--h: 95%"></span>
+              <span style="--h: 70%"></span><span style="--h: 50%"></span><span style="--h: 80%"></span>
+              <span style="--h: 55%"></span>
+            </div>
+            <p class="font-mono text-[11px] text-slate-500">token burn · 1.2k/s ▲</p>
+          </div>
+        </article>
+
+        <!-- ---------- CARD 8 : SDK CODE (2x1) ---------- -->
+        <article class="bento-card reveal" data-tilt data-glow id="sdk" style="--delay: 420ms">
+          <div class="card-shine" aria-hidden="true"></div>
+          <header class="card-head">
+            <span class="card-tag card-tag--lime">AETHER_SDK · python</span>
+            <span class="font-mono text-[10px] text-slate-500">3 lines to swarm</span>
+          </header>
+          <pre class="code-block font-mono text-[11px] leading-relaxed sm:text-xs"><code><span class="c-kw">from</span> <span class="c-mod">aether</span> <span class="c-kw">import</span> AgentOS
+
+os = AgentOS(kernel=<span class="c-str">"neural-fabric"</span>)
+swarm = os.spawn(<span class="c-num">128</span>, goal=<span class="c-str">"optimize_grid"</span>)
+
+<span class="c-kw">await</span> swarm.run(mode=<span class="c-str">"autonomous"</span>)  <span class="c-cm"># → done in 4.2s</span></code></pre>
+        </article>
+
+        <!-- ---------- CARD 9 : CTA (2x1) ---------- -->
+        <article class="bento-card bento-card--cta reveal" data-tilt data-glow style="--delay: 480ms">
+          <div class="card-shine" aria-hidden="true"></div>
+          <div class="flex h-full flex-col items-start justify-center gap-4">
+            <span class="card-tag card-tag--cyan">GET_STARTED</span>
+            <h3 class="font-display text-2xl font-bold leading-tight text-white">
+              Boot your first<br />agent swarm in <span class="text-gradient-cyber">60 seconds</span>
+            </h3>
+            <a href="#cta" class="btn-primary">
+              <span>Start free tier</span>
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </article>
+
+      </div>
+      <!-- ======================= /BENTO GRID ========================= -->
+    </section>
+
+    <!-- ============================================================
+         METRICS STRIP
+    ============================================================ -->
+    <section id="metrics" class="relative mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
+      <div class="reveal glass-panel rounded-2xl">
+        <div class="grid grid-cols-2 divide-white/10 md:grid-cols-4 md:divide-x">
+          <div class="metric-cell">
+            <p class="metric-value"><span class="counter" data-target="4.2" data-decimals="1">0</span><span class="metric-unit">M</span></p>
+            <p class="metric-label">tasks executed / day</p>
+          </div>
+          <div class="metric-cell">
+            <p class="metric-value"><span class="counter" data-target="128">0</span><span class="metric-unit">+</span></p>
+            <p class="metric-label">concurrent agents</p>
+          </div>
+          <div class="metric-cell">
+            <p class="metric-value"><span class="counter" data-target="47">0</span><span class="metric-unit">ms</span></p>
+            <p class="metric-label">median reflect loop</p>
+          </div>
+          <div class="metric-cell">
+            <p class="metric-value"><span class="counter" data-target="0">0</span><span class="metric-unit">sec</span></p>
+            <p class="metric-label">unplanned downtime '26</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         ARCHITECTURE / DEEP-FEATURE SECTION
+    ============================================================ -->
+    <section id="architecture" class="relative mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
+      <div class="grid gap-6 lg:grid-cols-3">
+        <div class="reveal glass-panel flex flex-col gap-4 rounded-2xl p-6 lg:col-span-2">
+          <p class="font-mono text-xs uppercase tracking-[0.3em] text-cyber-cyan">// runtime pipeline</p>
+          <h3 class="font-display text-2xl font-bold text-white sm:text-3xl">
+            From prompt to production action — fully supervised.
+          </h3>
+          <ol class="pipeline mt-2 grid gap-3 sm:grid-cols-4">
+            <li class="pipeline-step"><span class="pipeline-num">01</span><span class="pipeline-name">Ingest</span><span class="pipeline-desc">context + memory</span></li>
+            <li class="pipeline-step"><span class="pipeline-num">02</span><span class="pipeline-name">Plan</span><span class="pipeline-desc">goal decomposition</span></li>
+            <li class="pipeline-step"><span class="pipeline-num">03</span><span class="pipeline-name">Act</span><span class="pipeline-desc">sandboxed tools</span></li>
+            <li class="pipeline-step"><span class="pipeline-num">04</span><span class="pipeline-name">Reflect</span><span class="pipeline-desc">self-verification</span></li>
+          </ol>
+        </div>
+
+        <div class="reveal glass-panel flex flex-col justify-between gap-4 rounded-2xl p-6" style="transition-delay: 100ms">
+          <div class="icon-orb icon-orb--violet" aria-hidden="true">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.9 4.9l2.9 2.9M16.2 16.2l2.9 2.9M19.1 4.9l-2.9 2.9M7.8 16.2l-2.9 2.9"/></svg>
+          </div>
+          <div>
+            <h3 class="font-display text-xl font-bold text-white">Self-healing fleet</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-400">
+              Crash loops are contained and restarted from the last verified checkpoint —
+              your mission state never corrupts.
+            </p>
+          </div>
+          <p class="font-mono text-[11px] text-cyber-lime">● all systems nominal</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FINAL CTA
+    ============================================================ -->
+    <section id="cta" class="relative mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
+      <div class="reveal cta-panel relative overflow-hidden rounded-3xl px-6 py-14 text-center sm:px-12 sm:py-20">
+        <div class="cta-glow" aria-hidden="true"></div>
+        <p class="font-mono text-xs uppercase tracking-[0.3em] text-cyber-magenta">// initialize</p>
+        <h2 class="mx-auto mt-4 max-w-2xl font-display text-3xl font-bold tracking-tight text-white sm:text-5xl">
+          Give your agents an <span class="text-gradient-cyber">operating system</span>.
+        </h2>
+        <p class="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-slate-400 sm:text-base">
+          Free for the first 10,000 agent-tasks. No credit card. Kernel boots in your browser
+          or on your metal — your choice.
+        </p>
+
+        <form class="mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row" id="signup-form" novalidate>
+          <label for="email" class="sr-only">Work email</label>
+          <input
+            id="email" name="email" type="email" required placeholder="you@company.ai"
+            class="cta-input"
+            autocomplete="email"
+          />
+          <button type="submit" class="btn-primary btn-primary--lg shrink-0 justify-center">
+            <span>Request access</span>
+          </button>
+        </form>
+        <p id="form-status" class="mt-4 h-5 font-mono text-xs text-cyber-lime" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="relative border-t border-white/10">
+    <div class="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-4 lg:px-8">
+      <div class="md:col-span-2">
+        <a href="#" class="flex items-center gap-3">
+          <span class="logo-mark" aria-hidden="true"><span class="logo-mark__core"></span></span>
+          <span class="font-display text-lg font-bold tracking-widest text-white">AETHER<span class="text-cyber-cyan">//</span>OS</span>
+        </a>
+        <p class="mt-4 max-w-sm text-sm leading-relaxed text-slate-500">
+          The dark-matter layer for autonomous intelligence. Built for engineers who ship agents, not demos.
+        </p>
+        <p class="mt-4 font-mono text-[11px] text-slate-600">STATUS: <span class="text-cyber-lime">● OPERATIONAL</span></p>
+      </div>
+
+      <div>
+        <h4 class="footer-title">Product</h4>
+        <ul class="footer-list">
+          <li><a href="#features">Kernel</a></li>
+          <li><a href="#architecture">Fabric</a></li>
+          <li><a href="#metrics">Telemetry</a></li>
+          <li><a href="#sdk">SDK</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-title">Company</h4>
+        <ul class="footer-list">
+          <li><a href="#">Manifesto</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Security</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/5">
+      <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-6 font-mono text-[11px] text-slate-600 sm:flex-row sm:px-6 lg:px-8">
+        <p>© 2026 AETHER OS — ALL RIGHTS RESERVED</p>
+        <p>BUILT WITH VANILLA JS · DEPLOYED ON GITHUB PAGES</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Custom styles + scripts (no build step) -->
+  <script src="script.js"></script>
+</body>
+</html>
