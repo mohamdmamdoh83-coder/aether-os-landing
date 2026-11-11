@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- REPLACE: Your SEO description shown in Google search results -->
   <meta name="description" content="Aether OS — the futuristic operating system for autonomous AI agents. Neural routing, zero-trust sandboxing, and real-time observability." />
+  <!-- EDIT: Browser tab / Android address-bar color -->
   <meta name="theme-color" content="#05060a" />
+  <!-- REPLACE: Your Brand Name Here (browser tab title) -->
   <title>Aether OS — Operating System for Autonomous AI Agents</title>
 
   <!-- Fonts -->
@@ -12,9 +15,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <!-- Tailwind CSS via CDN -->
+  <!-- Tailwind CSS via CDN (no build step required) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
+    /* EDIT: Tailwind theme — your brand colors & fonts live here.
+       cyber.cyan / cyber.magenta are used across the whole page. */
     tailwind.config = {
       theme: {
         extend: {
@@ -45,7 +50,8 @@
 <body class="relative min-h-screen bg-ink font-sans text-slate-200 antialiased overflow-x-hidden">
 
   <!-- ============================================================
-       ANIMATED MESH GRADIENT BACKGROUND
+       SECTION: Animated Mesh Gradient Background
+       (4 floating color blobs — edit colors in style.css, section 3)
   ============================================================ -->
   <div class="mesh-bg" aria-hidden="true">
     <span class="mesh-blob mesh-blob--cyan"></span>
@@ -57,11 +63,11 @@
   <div class="noise-overlay" aria-hidden="true"></div>
 
   <!-- ============================================================
-       HEADER / NAVIGATION
+       SECTION: Header / Navigation
   ============================================================ -->
   <header id="site-header" class="fixed inset-x-0 top-0 z-50 transition-all duration-300">
     <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8" aria-label="Main">
-      <!-- Logo -->
+      <!-- Logo — REPLACE: Your Brand Name Here (keep both logo lines in sync) -->
       <a href="#" class="group flex items-center gap-3">
         <span class="logo-mark" aria-hidden="true">
           <span class="logo-mark__core"></span>
@@ -71,7 +77,7 @@
         </span>
       </a>
 
-      <!-- Desktop links -->
+      <!-- EDIT: Desktop menu links (text + #anchor) -->
       <ul class="hidden items-center gap-8 md:flex">
         <li><a href="#features" class="nav-link">Overview</a></li>
         <li><a href="#architecture" class="nav-link">Architecture</a></li>
@@ -106,30 +112,31 @@
 
   <main>
     <!-- ============================================================
-         HERO
+         SECTION: Hero (headline, sub-copy, main buttons)
+         EDIT: swap the text below to match your product.
     ============================================================ -->
     <section class="relative mx-auto max-w-7xl px-4 pb-16 pt-32 sm:px-6 sm:pt-40 lg:px-8">
       <div class="max-w-4xl">
-        <!-- Version badge -->
+        <!-- EDIT: Version badge (small pill above the headline) -->
         <div class="reveal inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 font-mono text-xs tracking-wider text-cyber-cyan backdrop-blur-md">
           <span class="status-dot" aria-hidden="true"></span>
           v2.4 · NEURAL FABRIC UPDATE IS LIVE
         </div>
 
-        <!-- Headline -->
+        <!-- EDIT: Hero headline — the highlighted span uses the neon gradient -->
         <h1 class="reveal mt-6 font-display text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-7xl">
           The operating system<br class="hidden sm:block" />
           for <span class="text-gradient-cyber">autonomous AI agents</span>
         </h1>
 
-        <!-- Sub copy -->
+        <!-- EDIT: Hero sub-copy (supporting paragraph) -->
         <p class="reveal mt-6 max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg">
           Aether OS runs swarms of goal-driven agents inside a zero-trust kernel —
           routing intelligence through a neural fabric with sub-10ms scheduling,
           full observability, and deterministic safety rails.
         </p>
 
-        <!-- CTA row -->
+        <!-- EDIT: Hero button row (primary + ghost buttons) -->
         <div class="reveal mt-9 flex flex-wrap items-center gap-4">
           <a href="#cta" class="btn-primary btn-primary--lg">
             <span>Deploy Agent Kernel</span>
@@ -141,7 +148,7 @@
           </a>
         </div>
 
-        <!-- Trust row -->
+        <!-- REPLACE: Your client / partner names here -->
         <div class="reveal mt-12 flex flex-wrap items-center gap-x-8 gap-y-3 font-mono text-xs uppercase tracking-widest text-slate-500">
           <span>Trusted by autonomous teams at</span>
           <span class="text-slate-400">NEBULA-LABS</span>
@@ -153,10 +160,13 @@
     </section>
 
     <!-- ============================================================
-         DYNAMIC BENTO GRID
+         SECTION: Dynamic Bento Grid (the main feature cards)
+         EDIT: add/remove a card by copying one <article> block.
+         TILT: cards need class "reveal" + data-tilt for the
+         scroll-in animation and the 3D mouse parallax effect.
     ============================================================ -->
     <section id="features" class="relative mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
-      <!-- Section heading -->
+      <!-- EDIT: Section heading -->
       <div class="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p class="reveal font-mono text-xs uppercase tracking-[0.3em] text-cyber-magenta">// system architecture</p>
@@ -169,10 +179,15 @@
         </p>
       </div>
 
-      <!-- ========================= BENTO GRID ========================= -->
+      <!-- =========================
+           BENTO GRID CONTAINER
+           Card sizes are controlled in style.css (section 8):
+           .bento-card--core = 2x2 · span-2 cards are wide
+      ========================= -->
       <div id="bento-grid" class="bento-grid">
 
-        <!-- ---------- CARD 1 : CORE RUNTIME (2x2) ---------- -->
+        <!-- ---------- CARD 1 : CORE RUNTIME (2x2)
+             EDIT: biggest card — pairs with the animated core orb ---------- -->
         <article class="bento-card bento-card--core reveal" data-tilt data-glow style="--delay: 0ms">
           <div class="card-shine" aria-hidden="true"></div>
           <header class="card-head">
@@ -205,7 +220,8 @@
           </div>
         </article>
 
-        <!-- ---------- CARD 2 : TERMINAL (2x1) ---------- -->
+        <!-- ---------- CARD 2 : TERMINAL (2x1)
+             EDIT: the lines typed by script.js live in initTerminal() ---------- -->
         <article class="bento-card bento-card--terminal reveal" data-tilt data-glow style="--delay: 60ms">
           <div class="card-shine" aria-hidden="true"></div>
           <header class="card-head">
@@ -223,7 +239,8 @@
           </div>
         </article>
 
-        <!-- ---------- CARD 3 : STAT UPTIME (1x1) ---------- -->
+        <!-- ---------- CARD 3 : STAT UPTIME (1x1)
+             EDIT: change data-target / data-decimals to set the number ---------- -->
         <article class="bento-card reveal" data-tilt data-glow style="--delay: 120ms">
           <div class="card-shine" aria-hidden="true"></div>
           <header class="card-head">
@@ -240,7 +257,8 @@
           </div>
         </article>
 
-        <!-- ---------- CARD 4 : STAT LATENCY (1x1) ---------- -->
+        <!-- ---------- CARD 4 : STAT LATENCY (1x1)
+             EDIT: change data-target / data-decimals to set the number ---------- -->
         <article class="bento-card reveal" data-tilt data-glow style="--delay: 180ms">
           <div class="card-shine" aria-hidden="true"></div>
           <header class="card-head">
@@ -257,7 +275,8 @@
           </div>
         </article>
 
-        <!-- ---------- CARD 5 : NEURAL ROUTING (2x1) ---------- -->
+        <!-- ---------- CARD 5 : NEURAL ROUTING (2x1)
+             EDIT: feature blurb + decorative SVG node graph ---------- -->
         <article class="bento-card reveal" data-tilt data-glow style="--delay: 240ms">
           <div class="card-shine" aria-hidden="true"></div>
           <header class="card-head">
@@ -287,7 +306,8 @@
           </div>
         </article>
 
-        <!-- ---------- CARD 6 : ZERO-TRUST SANDBOX (1x1) ---------- -->
+        <!-- ---------- CARD 6 : ZERO-TRUST SANDBOX (1x1)
+             EDIT: icon + short feature text ---------- -->
         <article class="bento-card reveal" data-tilt data-glow style="--delay: 300ms">
           <div class="card-shine" aria-hidden="true"></div>
           <header class="card-head">
@@ -304,7 +324,8 @@
           </div>
         </article>
 
-        <!-- ---------- CARD 7 : OBSERVABILITY (1x1) ---------- -->
+        <!-- ---------- CARD 7 : OBSERVABILITY (1x1)
+             EDIT: sparkline bar heights use inline --h values ---------- -->
         <article class="bento-card reveal" data-tilt data-glow style="--delay: 360ms">
           <div class="card-shine" aria-hidden="true"></div>
           <header class="card-head">
@@ -325,7 +346,8 @@
           </div>
         </article>
 
-        <!-- ---------- CARD 8 : SDK CODE (2x1) ---------- -->
+        <!-- ---------- CARD 8 : SDK CODE (2x1)
+             REPLACE: paste your own code snippet inside <code> ---------- -->
         <article class="bento-card reveal" data-tilt data-glow id="sdk" style="--delay: 420ms">
           <div class="card-shine" aria-hidden="true"></div>
           <header class="card-head">
@@ -340,7 +362,8 @@ swarm = os.spawn(<span class="c-num">128</span>, goal=<span class="c-str">"optim
 <span class="c-kw">await</span> swarm.run(mode=<span class="c-str">"autonomous"</span>)  <span class="c-cm"># → done in 4.2s</span></code></pre>
         </article>
 
-        <!-- ---------- CARD 9 : CTA (2x1) ---------- -->
+        <!-- ---------- CARD 9 : CTA (2x1)
+             EDIT: mini call-to-action card at the bottom of the grid ---------- -->
         <article class="bento-card bento-card--cta reveal" data-tilt data-glow style="--delay: 480ms">
           <div class="card-shine" aria-hidden="true"></div>
           <div class="flex h-full flex-col items-start justify-center gap-4">
@@ -360,7 +383,8 @@ swarm = os.spawn(<span class="c-num">128</span>, goal=<span class="c-str">"optim
     </section>
 
     <!-- ============================================================
-         METRICS STRIP
+         SECTION: Metrics Strip (4 headline numbers)
+         EDIT: each .counter's data-target sets the final number.
     ============================================================ -->
     <section id="metrics" class="relative mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
       <div class="reveal glass-panel rounded-2xl">
@@ -386,7 +410,8 @@ swarm = os.spawn(<span class="c-num">128</span>, goal=<span class="c-str">"optim
     </section>
 
     <!-- ============================================================
-         ARCHITECTURE / DEEP-FEATURE SECTION
+         SECTION: Architecture / Runtime Pipeline
+         EDIT: the 4 pipeline steps (01–04) live in the <ol> below.
     ============================================================ -->
     <section id="architecture" class="relative mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
       <div class="grid gap-6 lg:grid-cols-3">
@@ -420,7 +445,9 @@ swarm = os.spawn(<span class="c-num">128</span>, goal=<span class="c-str">"optim
     </section>
 
     <!-- ============================================================
-         FINAL CTA
+         SECTION: Final CTA (email signup form)
+         NOTE: the form is front-end only — wire the <form> to your
+         own endpoint (e.g. Mailchimp, Formspree) before selling.
     ============================================================ -->
     <section id="cta" class="relative mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
       <div class="reveal cta-panel relative overflow-hidden rounded-3xl px-6 py-14 text-center sm:px-12 sm:py-20">
@@ -451,11 +478,12 @@ swarm = os.spawn(<span class="c-num">128</span>, goal=<span class="c-str">"optim
   </main>
 
   <!-- ============================================================
-       FOOTER
+       SECTION: Footer
   ============================================================ -->
   <footer class="relative border-t border-white/10">
     <div class="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-4 lg:px-8">
       <div class="md:col-span-2">
+        <!-- REPLACE: Your Brand Name Here (footer logo — keep in sync with header) -->
         <a href="#" class="flex items-center gap-3">
           <span class="logo-mark" aria-hidden="true"><span class="logo-mark__core"></span></span>
           <span class="font-display text-lg font-bold tracking-widest text-white">AETHER<span class="text-cyber-cyan">//</span>OS</span>
@@ -488,6 +516,7 @@ swarm = os.spawn(<span class="c-num">128</span>, goal=<span class="c-str">"optim
     </div>
     <div class="border-t border-white/5">
       <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-6 font-mono text-[11px] text-slate-600 sm:flex-row sm:px-6 lg:px-8">
+        <!-- REPLACE: Your copyright line here -->
         <p>© 2026 AETHER OS — ALL RIGHTS RESERVED</p>
         <p>BUILT WITH VANILLA JS · DEPLOYED ON GITHUB PAGES</p>
       </div>

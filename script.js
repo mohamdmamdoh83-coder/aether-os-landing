@@ -40,6 +40,9 @@
       return;
     }
 
+    // EDIT: 3D parallax intensity — max degrees the card rotates.
+    // 4 = subtle, 7 = balanced, 12 = extreme. (The active tilt
+    // module at the bottom of this file uses TILT_DEGREES.)
     const MAX_TILT = 7;        // degrees on X/Y axes
     const SHINE = 420;         // px radius of the shine gradient (matches CSS)
 
@@ -465,4 +468,95 @@
   } else {
     boot();
   }
+})();
+
+/* ============================================================
+   3D PARALLAX TILT — ACTIVE MODULE (appended)
+   ------------------------------------------------------------
+   A real Vanilla JS mousemove listener for the Bento grid cards.
+   For every card with the `data-tilt` attribute it:
+     1. Listens for `mousemove` and calculates where the cursor
+        is inside the card (as a percentage).
+     2. Applies a dynamic inline style:
+          transform: perspective(1000px) rotateX(..) rotateY(..)
+        so the card tilts toward the mouse.
+     3. Listens for `mouseleave` and resets the card to flat —
+        the CSS transition in style.css (section 19) animates
+        that reset smoothly.
+
+   EDIT — INTENSITY OF THE 3D EFFECT:
+     TILT_DEGREES  → how far the card rotates.
+                     4 = subtle, 7 = balanced (default),
+                     12 = extreme. Range: 0–20.
+     FOLLOW_SPEED  → how fast the card tracks the mouse.
+                     0.05s = snappy, 0.15s = floaty.
+     RESET_SPEED   → how slowly the card glides back to flat
+                     when the mouse leaves (default 0.5s in CSS).
+
+   EDIT — PERSPECTIVE:
+     Change `perspective(1000px)` below (and in style.css
+     section 19) to change the camera distance:
+     smaller number = more dramatic depth.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  // ===== EDIT HERE: 3D tilt intensity (degrees) =====
+  var TILT_DEGREES = 7; // 4 = subtle · 7 = balanced · 12 = extreme
+
+  // ===== EDIT HERE: follow & reset speed (seconds) =====
+  var FOLLOW_SPEED = '0.1s'; // how fast the card tracks the mouse
+  // (the smooth mouseleave reset speed lives in style.css → 0.5s)
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+
+  // Touch devices and reduced-motion users get no tilt.
+  if (reduceMotion || isCoarsePointer) return;
+
+  // Every card marked with data-tilt inside the Bento grid.
+  var cards = document.querySelectorAll('.bento-grid [data-tilt]');
+
+  cards.forEach(function (card) {
+    // --- MOUSEMOVE: calculate position → apply 3D transform ---
+    card.addEventListener('mousemove', function (e) {
+      var rect = card.getBoundingClientRect();
+
+      // Cursor position inside the card, from 0.0 (top/left)
+      // to 1.0 (bottom/right).
+      var px = (e.clientX - rect.left) / rect.width;
+      var py = (e.clientY - rect.top) / rect.height;
+
+      // Convert to degrees: rotateX reacts to vertical movement,
+      // rotateY to horizontal movement. Both centre on 0.
+      var rotateX = (0.5 - py) * 2 * TILT_DEGREES; // negative = tilt up
+      var rotateY = (px - 0.5) * 2 * TILT_DEGREES; // positive = tilt right
+
+      // Fast transition while tracking the mouse…
+      card.style.setProperty('--tilt-speed', FOLLOW_SPEED);
+
+      // …and the dynamic 3D transform itself.
+      // (Inline style beats every stylesheet rule, so this is
+      //  guaranteed to apply — see the specificity note in CSS.)
+      card.style.transform =
+        'perspective(1000px) rotateX(' + rotateX.toFixed(2) + 'deg)' +
+        ' rotateY(' + rotateY.toFixed(2) + 'deg)';
+
+      // Bonus: move the glass "shine" highlight to the cursor.
+      card.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
+      card.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+    });
+
+    // --- MOUSELEAVE: reset to flat (CSS transition does the easing) ---
+    card.addEventListener('mouseleave', function () {
+      // Remove the fast speed → CSS falls back to the slower
+      // reset speed (0.5s), so the card glides back smoothly.
+      card.style.removeProperty('--tilt-speed');
+
+      // Reset transform to neutral — style.css section 19
+      // transitions this over ~0.5s for a smooth landing.
+      card.style.transform =
+        'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+    });
+  });
 })();
