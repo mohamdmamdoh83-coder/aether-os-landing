@@ -10,12 +10,18 @@
    1. DESIGN TOKENS
 ------------------------------------------------------------ */
 :root {
-  --ink: #05060a;
-  --panel: rgba(14, 16, 26, 0.55);
-  --cyan: #22e6ff;
-  --magenta: #ff2fd6;
-  --violet: #8b5cf6;
-  --lime: #b6ff3d;
+  /* --------------------------------------------------------
+     EDIT: Main Neon Colors (Cyan & Purple)
+     Change these 6 values to re-brand the ENTIRE page —
+     buttons, glows, gradients, and hover states all read
+     from these variables.
+     -------------------------------------------------------- */
+  --ink: #05060a;        /* EDIT: page background (near-black) */
+  --panel: rgba(14, 16, 26, 0.55); /* EDIT: card base tint (RGBA) */
+  --cyan: #22e6ff;       /* EDIT: primary neon (cyan) */
+  --magenta: #ff2fd6;    /* EDIT: secondary neon (magenta/pink) */
+  --violet: #8b5cf6;     /* EDIT: accent neon (purple) */
+  --lime: #b6ff3d;       /* EDIT: success / "live" neon (green) */
   --border: rgba(255, 255, 255, 0.08);
   --border-strong: rgba(255, 255, 255, 0.16);
   --text-dim: #94a3b8;
@@ -382,6 +388,9 @@ body {
 
 /* ------------------------------------------------------------
    7. GLASSMORPHISM — shared frosted surfaces
+   Glassmorphism settings: EDIT the blur radius (18px), the
+   saturation (140%), and the rgba() background tint to control
+   how "frosted" every panel looks.
 ------------------------------------------------------------ */
 .glass-panel {
   background: var(--panel);
@@ -396,6 +405,8 @@ body {
 /* ------------------------------------------------------------
    8. BENTO GRID
    Mobile: 1 col → tablet: 2 col → desktop: 4 col spans
+   EDIT: change `span 2` / `span 1` values below to make any
+   card wider or taller in the grid layout.
 ------------------------------------------------------------ */
 .bento-grid {
   display: grid;
@@ -431,7 +442,10 @@ body {
   .bento-card--cta            { grid-column: span 2; }  /* cta */
 }
 
-/* --- Individual card shell --- */
+/* --- Individual card shell ---
+   Glassmorphism settings: frosted background + blur on every
+   bento card. The 3D parallax transform is declared in
+   section 19 at the bottom of this file (appended fix). */
 .bento-card {
   position: relative;
   display: flex;
@@ -1017,6 +1031,9 @@ body {
 /* ------------------------------------------------------------
    17. SCROLL REVEAL
    .reveal starts hidden ONLY when JS is active (html.js).
+   NOTE: bento cards use this class for their fade-in — but the
+   3D tilt transform lives in section 19 below, which overrides
+   the transform here so hover parallax keeps working.
 ------------------------------------------------------------ */
 html.js .reveal {
   opacity: 0;
@@ -1068,3 +1085,43 @@ html.js .reveal.in-view {
     transform: none !important;
   }
 }
+
+/* ============================================================
+   19. 3D PARALLAX TILT — ACTIVE RULES (appended fix)
+   ------------------------------------------------------------
+   WHY THIS BLOCK EXISTS (important for template buyers):
+   Every .bento-card ALSO has the class .reveal (used for the
+   scroll-in animation). The scroll-reveal rules in section 17
+   (`html.js .reveal …`) set the `transform` property, and because
+   they have a HIGHER specificity than `.bento-card`, they were
+   overriding the 3D tilt transform — so the hover effect never
+   appeared.
+
+   This block re-declares the card transform with a higher
+   specificity so the tilt always wins, and it defines the
+   transition used by script.js:
+     - FAST follow while the mouse moves over the card
+       (script.js sets --tilt-speed: 0.1s during hover)
+     - SMOOTH reset back to flat on mouseleave
+       (script.js removes --tilt-speed → falls back to 0.5s)
+
+   EDIT: change 1000px below to adjust the camera distance
+         (smaller = more dramatic perspective, e.g. 700px).
+   EDIT: change 0.5s below to adjust how slowly the card
+         glides back to flat when your mouse leaves.
+   ============================================================ */
+html.js .bento-grid .bento-card,
+html.js .bento-grid .bento-card.reveal,
+html.js .bento-grid .bento-card.reveal.in-view {
+  transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+
+  transition:
+    transform var(--tilt-speed, 0.5s) cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--delay, 0ms),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* Glassmorphism settings — EDIT: the frosted-glass look lives in
+   `.glass-panel` and `.bento-card` above (section 7 & 8):
+   blur strength, saturation, and the rgba() tint behind it. */
