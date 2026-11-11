@@ -381,10 +381,54 @@
       h1:focus-visible .glitch-line::before, h1:focus-visible .glitch-line::after { animation: none; opacity: 0; }
       .button-primary, .featured .plan-cta { will-change: auto; transform: none !important; }
     }
+
+    /* Full-page cursor light. Only transform changes while the pointer moves. */
+    :root { --mouse-x: 50vw; --mouse-y: 42vh; }
+    .cursor-glow {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: visible;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 280ms ease;
+    }
+    .cursor-glow.is-visible { opacity: 1; }
+    .cursor-glow::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: min(68vw, 760px);
+      height: min(68vw, 760px);
+      min-width: 360px;
+      min-height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center,
+        rgba(92, 236, 255, .13) 0%,
+        rgba(92, 236, 255, .075) 24%,
+        rgba(132, 105, 255, .055) 46%,
+        rgba(132, 105, 255, .02) 60%,
+        transparent 74%);
+      mix-blend-mode: screen;
+      transform: translate3d(calc(var(--mouse-x, 50vw) - 50%), calc(var(--mouse-y, 50vh) - 50%), 0);
+      will-change: transform;
+    }
+    /* Keep the Bento cards stable; the pointer response now lives at page level. */
+    .feature-card:hover {
+      transform: none;
+      border-color: rgba(154, 198, 221, .15);
+      background: linear-gradient(145deg, rgba(22, 34, 49, .68), rgba(8, 14, 24, .62));
+      box-shadow: inset 0 1px rgba(255, 255, 255, .04);
+    }
+    @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+      .cursor-glow { display: none; }
+    }
   </style>
 </head>
 <body>
   <canvas id="particle-field" aria-hidden="true"></canvas>
+  <div class="cursor-glow" aria-hidden="true"></div>
   <header class="topbar">
     <div class="shell nav-inner">
       <a class="brand" href="#top" aria-label="AetherOS home"><span class="brand-mark" aria-hidden="true"></span><span>AETHER<b>OS</b></span></a>
@@ -627,6 +671,71 @@
         });
       });
     }
+
+    // Global mouse-follow glow: coalesce movement and ease via compositor-friendly transforms.
+    (() => {
+      const glow = document.querySelector('.cursor-glow');
+      const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (!glow || !finePointer.matches || reduceMotion.matches) return;
+
+      const root = document.documentElement;
+      let targetX = window.innerWidth / 2;
+      let targetY = window.innerHeight / 2;
+      let currentX = targetX;
+      let currentY = targetY;
+      let frame = 0;
+
+      function writePosition() {
+        root.style.setProperty('--mouse-x', `${currentX.toFixed(1)}px`);
+        root.style.setProperty('--mouse-y', `${currentY.toFixed(1)}px`);
+      }
+
+      function followPointer() {
+        const remainingX = targetX - currentX;
+        const remainingY = targetY - currentY;
+        currentX += remainingX * .2;
+        currentY += remainingY * .2;
+
+        if (Math.abs(remainingX) < .25 && Math.abs(remainingY) < .25) {
+          currentX = targetX;
+          currentY = targetY;
+          frame = 0;
+          writePosition();
+          return;
+        }
+
+        writePosition();
+        frame = window.requestAnimationFrame(followPointer);
+      }
+
+      window.addEventListener('mousemove', event => {
+        targetX = event.clientX;
+        targetY = event.clientY;
+
+        if (!glow.classList.contains('is-visible')) {
+          currentX = targetX;
+          currentY = targetY;
+          writePosition();
+          glow.classList.add('is-visible');
+          return;
+        }
+
+        if (!frame) frame = window.requestAnimationFrame(followPointer);
+      }, { passive: true });
+
+      function hideGlow() {
+        glow.classList.remove('is-visible');
+        if (frame) window.cancelAnimationFrame(frame);
+        frame = 0;
+      }
+
+      window.addEventListener('mouseleave', hideGlow, { passive: true });
+      window.addEventListener('blur', hideGlow);
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) hideGlow();
+      });
+    })();
   </script>
 </body>
 </html>
